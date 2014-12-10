@@ -276,6 +276,12 @@ Following are some space/space container MBeans **Operations** settings you can 
     - **name** -- the name of the data.
     - **type** - the type or class name of the data.
 
+# Disabling MBean Creation
+
+Setting the following will disable the creation of an MBean
+
+ -Dcom.gs.jmx.enabled=false
+
 # Getting Space Statistics using the JMX API
 
 See [example of JMX API usage](/sbp/jmx-space-statistics.html).
