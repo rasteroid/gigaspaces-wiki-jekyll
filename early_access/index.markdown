@@ -17,7 +17,7 @@ weight:
 
 # Release Candidate M1 b14701
 
-{%panel%}
+ 
 
 
 {%panel title=Java%}
