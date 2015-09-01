@@ -6,9 +6,11 @@ categories: EARLY_ACCESS
 weight:
 ---
 
-{%summary%}At this point in time there is no early access version available{%endsummary%}
-
 {%comment%}
+{%summary%}At this point in time there is no early access version available{%endsummary%}
+{%endcomment%}
+
+ 
 {%summary%}Here you will find milestone releases for XAP 11.0{%endsummary%}
 
 
@@ -53,7 +55,7 @@ weight:
 [XAP win32-vs9.0](http://www.gigaspaces.com/tempfiles/downloads/EarlyAccess/xap/11.0.0/m1/gigaspaces-cpp-11.0.0-m1-win32-vs9.0.tar.gz)
 {%endpanel%}
 
-{%endpanel%}
+ 
 
 
 
