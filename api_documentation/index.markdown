@@ -11,6 +11,8 @@ categories: API_DOCUMENTATION
 <br>
 
 {%panel%}
+- [XAP 11.0](./xap-11.0.html)
+
 - [XAP 10.2](./xap-10.2.html)
 
 - [XAP 10.1](./xap-10.1.html)
