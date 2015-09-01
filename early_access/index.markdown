@@ -11,11 +11,11 @@ weight:
 {%endcomment%}
 
  
-{%summary%}Here you will find milestone releases for XAP 11.0{%endsummary%}
+{%summary%}Here you will find milestone release for XAP 11.0{%endsummary%}
 
 
 
-# Release Candidate M1 b14701
+# Milestone M1 b14701
 
  
 
