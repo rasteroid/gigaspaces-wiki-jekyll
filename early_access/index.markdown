@@ -72,5 +72,5 @@ weight:
 [The current XAP .NET release is 10.2](/xap102net)
 
 
-{%endcomment%}
+ 
 
