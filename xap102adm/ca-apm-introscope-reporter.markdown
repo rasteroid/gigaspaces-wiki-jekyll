@@ -8,18 +8,12 @@ weight: 200
 
 {% summary %}  {% endsummary %}
 
-
-# XAP - APM Introscope - Reference documentation
-
-[CA APM](http://www.ca.com/us/products/application-performance-management.aspx) is a complex tool that helps to monitor applications and react quickly when certain performance issues may occur. XAP provides many metrics like: processing units, spaces and machines that compose the grid. The metrics can be reported to Instroscope, so that its advanced features might be used to further analyze metrics data.
-
-XAP CA APM Introscope Reporter- it provides a way to send XAP related metrics to Introscope.
-
+[CA APM](http://www.ca.com/us/products/application-performance-management.aspx) helps to monitor applications and react quickly when certain performance issues may occur. XAP provides many metrics like: processing units, spaces and machines that compose the grid. The metrics can be reported to Instroscope, so that its advanced features might be used to further analyze metrics data. XAP CA APM Introscope Reporter provides a way to send XAP related metrics to Introscope.
 
 
 # Features
 
-XAP-apm-introscope introduces the following features:
+XAP-CA APM-introscope introduces the following features:
 
 - reporting metrics to Introscope ([more details](#integration-details))
 - inserting hierarchy into metrics ([more details](#metrics-hierarchy))
@@ -28,7 +22,7 @@ XAP-apm-introscope introduces the following features:
 
 ## Run requirements
 
-- CA APM Introscope 9.6 environment. The integration was tested on the 9.6 version, however, higher versions (at least 9.x) should also integrate properly.
+- CA APM Introscope 9.6 environment. The integration is tested with CA APM Introscope 9.6 however, higher versions (at least 9.x) should also integrate properly.
 - Enabled network input in Introscope, Introscope reporter in XAP metrics configured ([more details](#configuration)).
 
 # Quick steps
@@ -97,10 +91,10 @@ XAP-apm-introscope requires a separate license in addition to the XAP commercial
 
 # Integration details
 
-This paragraph describes deeply the most important aspects of XAP-Introscope integration.
+This paragraph describes the important aspects of XAP-CA APM Introscope integration.
 
 ## Integration with XAP
-XAP provides a well defined point of integration - [custom reporter](./metrics-custom-reporter.html). The integration is implemented according to guidelines from XAP documentation:
+XAP provides a well defined point of integration - [custom reporter](./metrics-custom-reporter.html). The integration is implemented based on XAP metrix framework:
 - `IntroscopeRepoter` - the main class that handles sending metrics inherits from `MetricReporter`,
 - `IntroscopeRepoterFactory` - a class that creates reporters derives from `MetricReporterFactory`.
 
@@ -118,7 +112,6 @@ Introscope gathers metrics data from applications using agents. It provides seve
 
 3. Network communication - `EPAgent` may expose a port on which it will listen for requests containing metric data.
 
-
 Integration by plugins would require additional work, because plugin semantics is that it pulls data, while the desired behavior is to accept data sent by XAP. The second method conforms to this requirement, however, it is not scalable, since one request carries only one metric value. Obviously, it would cause too much overhead. Moreover, this feature is deprecated and may be removed from Introscope. The last proposal solves all those issues: `EPAgent` listens for data and one requests contains multiple entries.
 
 #### Security warning
@@ -132,7 +125,7 @@ Format of each line is as follows:
      <metric type="TYPE" name="NAME" value="VALUE" />
 {% endhighlight %}
 
-There are three fields that need to be filled: type, name and value. Only the first one requires a short comment. Introscope has a few types of metrics defined. Some of them are connected with a little bit of logic - e.g. Introscope may compute average value of all reported values. However, XAP-apm-introscope uses only the most basic ones - `LongCounter` for numerical data and `StringEvent` for others, because statistics are already processed by XAP and need only to be exported to Introscope.
+There are three fields that need to be populated: type, name and value. Only the first one requires a short comment. Introscope has few types of metrics defined. Some of them are connected with a little bit of logic - e.g. Introscope may compute average value of all reported values. However, XAP-apm-introscope uses only the most basic ones - `LongCounter` for numerical data and `StringEvent` for others, because statistics are already processed by XAP and need only to be exported to Introscope.
 
 Below is an example of metric data sent to Introscope:
 {% highlight xml %}
@@ -148,7 +141,7 @@ There is no possibility to tie metric data with timestamp. Introscope connects a
 
 ## Hierarchy insertion
 
-XAP reports tens of different predefined metrics per each machine that belongs to grid, deployed processing unit or space (you can find more information [here](http://docs.gigaspaces.com/xap102adm/metrics-bundled.html)). Additionally, there might be also custom metrics defined by users. Even for one machine, number of metrics becomes too high for human-being to track them easily in webview in flat format. Hierarchy is inserted by modifying metric name - it has the given format:
+XAP reports tens of different predefined metrics per machine that belongs to grid, deployed processing unit or space (you can find more information [here](http://docs.gigaspaces.com/xap102adm/metrics-bundled.html)). Additionally, there might be also custom metrics defined by users. Even for one machine, number of metrics becomes too high for human-being to track them easily in webview in flat format. Hierarchy is inserted by modifying metric name - it has the given format:
 
 {% highlight yaml %}
      RESOURCE_SEGMENT_1|...|RESOURCE_SEGMENT_N:METRIC_NAME
@@ -173,7 +166,7 @@ xap
 {%endcolumn%}
 {%endsection%}
 
-in treelike format. `IntroscopeReporter` takes care of inserting hierarchy into predefined metrics, while custom metrics are reported without any name modifications.
+As you see these have a tree like format. `IntroscopeReporter` takes care of inserting hierarchy into predefined metrics, while custom metrics are reported without any name modifications.
 
 # Metrics conversions
 
@@ -284,9 +277,9 @@ Format: `xap|$TOPLEVEL:METRIC_NAME`
 
 
 ## Data types
-As was mentioned earlier, XAP-apm-introscope uses two types of metrics: `LongCounter` and `StringEvent`. `LongCounter` is reserved for numerical values - if an object representing metric value inherits from `Numerical`, it is supposed to be logged as `LongCounter`. Otherwise, metric type would be `StringEvent`.
+The XAP-apm-introscope uses two types of metrics: `LongCounter` and `StringEvent`. `LongCounter` is reserved for numerical values - if an object representing metric value inherits from `Numerical`, it is supposed to be logged as `LongCounter`. Otherwise, metric type would be `StringEvent`.
 
-Please note that a String object with numerical value (e.g. "0") would be recognized as `StringEvent`.
+A String object with numerical value (e.g. "0") would be recognized as `StringEvent`.
 
 ## Introscope metrics requirements
 Introscope adds a few constraints on metrics and `IntroscopeReporter` conforms to all of them by modifying metric names or values.
@@ -298,12 +291,10 @@ Metric value of `LongCounter` type must carry integer value. Unfortunately, Intr
 
 # Development environment installation steps
 
-Steps below describe how to set up development environment to start working on this plugin. Requirements:
+Steps below describe how to set up development environment to start working on this plugin. Filed required:
 - EPAgent9.6.0.0unix.tar,
 - introscope9.6.0.0otherUnix.jar,
 - osgiPackages.v9.6.0.0.unix.tar
-
-files on your disk (they cannot be uploaded to repo because of license restrictions).
 
 1. Install `docker` and `docker-compose`.
 2. Clone repo `https://github.com/stefansiegl/docker-introscope.git`.
