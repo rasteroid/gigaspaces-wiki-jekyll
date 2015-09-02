@@ -130,7 +130,7 @@ var query = from p in spaceProxy.Query<Person>()
 Dictionary entries can be traversed as well. For example, to query for entries whose *Addresses* contains a *Home* key which maps to an `Address` whose *Street* equals *Main*: 
 {% highlight csharp   %}
 var query = from p in spaceProxy.Query<Person>() 
-            where p.Adresses["Home"].Street == "Main" 
+            where p.Addresses["Home"].Street == "Main"
             select p; 
 {% endhighlight %}
 

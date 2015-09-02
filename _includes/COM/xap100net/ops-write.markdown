@@ -49,7 +49,7 @@ SpaceDocument document = new SpaceDocument ("Product", properties);
 // Create type descriptor:
 SpaceTypeDescriptorBuilder typeBuilder = new SpaceTypeDescriptorBuilder("Product");
 typeBuilder.SetIdProperty("CatalogNumber");
-typeBuilder.SetRoutingProperty("Catagory");
+typeBuilder.SetRoutingProperty("Category");
 typeBuilder.AddPropertyIndex("Name");
 typeBuilder.AddPropertyIndex("Price", SpaceIndexType.Extended);
 ISpaceTypeDescriptor typeDescriptor = typeBuilder.Create();

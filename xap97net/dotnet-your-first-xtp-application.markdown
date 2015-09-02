@@ -268,7 +268,7 @@ We configure a remote proxy to the cluster which is used by the feeder in order 
 {% endtabcontent %}
 {% endinittab %}
 
-The `Feed()` method does the actual work, by creating a new `Data` object with random data in an unprocessed state every second, and feeds it to the cluster. Additionaly every number of iterations it displays the statistics of processing of a certain type by executing a remote service which the processors expose. It does so by using an [Executor based remoting proxy](./executor-based-remoting.html) to the remote service which is hosted in the grid.
+The `Feed()` method does the actual work, by creating a new `Data` object with random data in an unprocessed state every second, and feeds it to the cluster. Additionally every number of iterations it displays the statistics of processing of a certain type by executing a remote service which the processors expose. It does so by using an [Executor based remoting proxy](./executor-based-remoting.html) to the remote service which is hosted in the grid.
 
 # Building the Example
 

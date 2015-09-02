@@ -146,7 +146,7 @@ Shows how to build and deploy the application to the GigaSpaces runtime environm
 {% togglecloak id=3 %}  **In this step you will learn...**{% endtogglecloak %}
 {% gcloak 3 %}
 
-- Buidling and deploying the application
+- Building and deploying the application
 - Scaling the web tier
 - Configuring highly available HTTP session backed by the space
 
