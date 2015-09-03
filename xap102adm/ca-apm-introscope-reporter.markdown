@@ -68,12 +68,13 @@ XAP-apm-introscope communicates with `EPAgent` deployed in an Introscope environ
 
 ## XAP metrics configuration
 
-File `$GS_HOME/config/metrics/metrics.xml` contains XAP metrics configuration. The part important for XAP-apm-introscope is a list of reporters - `IntroscopeReporter` must be added to it. Moreover, it has two obligatory properties:
-- host - hostname or ip address of a machine with EPAgent,
-- port - port on which EPAgent listens for metrics data. This value has to match `introscope.epagent.config.networkDataPort` property described in the previous subparagraph,and one optional property:
-- hierarchy_pattern - pattern used to build name of the highest level of hierarchy. It may contain a `{lookuplocator}` or `{lookupgroup}` substrings, which will be replaced by current lookuplocator or lookupgroup, respectively. If output of pattern conversion is empty or contains `{` or `}` signs, then it will be recognized as invalid and an `IllegalArgumentException` will be thrown. This property is optional, since it has default value `{lookupgroup}-{lookuplocator}`.
+File `$GS_HOME/config/metrics/metrics.xml` contains XAP metrics configuration. The part important for XAP-apm-introscope is a list of reporters - `IntroscopeReporter` must be added to it. Moreover, it has two mandatory properties:
 
-Below is an exemplary piece of XML that should be put inside `metrics.xml` file.
+- host - hostname or ip address of a machine with EPAgent. Mandatory. 
+- port - port on which EPAgent listens for metrics data. This value has to match `introscope.epagent.config.networkDataPort` property described in the previous paragraph. Mandatory. 
+- hierarchy_pattern - This is an optional property. Pattern used to build name of the highest level of hierarchy. It may contain a `{lookuplocator}` or `{lookupgroup}` substrings, which will be replaced by current lookuplocator or lookupgroup, respectively. If output of pattern conversion is empty or contains `{` or `}` signs, then it will be recognized as invalid and an `IllegalArgumentException` will be thrown. This property is optional, since it has default value `{lookupgroup}-{lookuplocator}`.
+
+Below config to be included within the `metrics.xml` file:
 
 {% highlight xml %}
      <reporters>
