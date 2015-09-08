@@ -11,23 +11,59 @@ weight: 200
 [CA APM](http://www.ca.com/us/products/application-performance-management.aspx) helps to monitor applications and react quickly when certain performance issues may occur. XAP provides many metrics like: processing units, spaces and machines that compose the grid. The metrics can be reported to Instroscope, so that its advanced features might be used to further analyze metrics data. XAP CA APM Introscope Reporter provides a way to send XAP related metrics to Introscope.
 
 
+{%note%}
+XAP-apm-introscope requires a separate license in addition to the XAP commercial license, please contact GigaSpaces Customer Support for more details.
+{%endnote%}
+
+# Architecture
+
+![intro6a.jpg](/attachment_files/ca_apm/xap_ca_apm1.png)
+
+The major components of CA Introscope® are the Enterprise Manager, CA Introscope® agents, Workstation, WebView, SmartStor, and APM database as shown in the graphic above. Many smaller components are explained in the CA Introscope® product documentation.
+
+### Enterprise Manager
+The Enterprise Manager acts as the repository of CA Introscope® performance metrics. The Enterprise Manager receives performance metrics from one or more CA Introscope® agents, allowing users to collect metrics centrally from many applications, application servers, and supporting systems. You can deploy the Enterprise Managers in different ways depending on the size and complexity of the enterprise system. The role of a specific Enterprise Manager depends on how it is deployed in a standalone or in a clustered CA APM environment.
+
+
+### Agents
+CA Introscope® agents collect and report several types of application and environmental performance metrics. One agent is deployed per process (Java Virtual Machine [JVM] or .NET CLR instance). The total number of agents depends on the size of the CA Introscope® deployment, for example:
+A small pilot network uses as few as half a dozen agents to monitor a few test applications.
+A large extended enterprise production environment uses hundreds or thousands of agents to monitor applications across the enterprise.
+
+CA Introscope® agents collect performance metrics from several sources:
+- The various components inside the running application
+- The application server
+- Performance and availability data from the surrounding computing environment.
+- The agents then report these metrics to the Enterprise Manager.
+
+You can import real-time generic and non-Java data into CA Introscope® through modified version of the agent named the Environment Performance Agent (EPA or EPAgent). EPA uses simple scripts that allow CA Introscope® to monitor virtually any type of application subsystem impacting performance.
+For example, using EPA CA Introscope® can monitor directory servers, operating systems, messaging middleware, and 
+
+
+# XAP Integration
+
+![intro6a.jpg](/attachment_files/ca_apm/xap_ca_apm2.png)
+
+
+
+
 # Features
 
 XAP-CA APM-introscope introduces the following features:
 
 - reporting metrics to Introscope ([more details](#integration-details))
 - inserting hierarchy into metrics ([more details](#metrics-hierarchy))
-- modifying reported metrics names and values to conform Introscope requirements ([more details](#introscope-metrics-requirements)).
+- modifying reported metrics names and values to conform to Introscope requirements ([more details](#introscope-metrics-requirements)).
 
 
-## Run requirements
+## Requirements
 
-- CA APM Introscope 9.6 environment. The integration is tested with CA APM Introscope 9.6 however, higher versions (at least 9.x) should also integrate properly.
-- Enabled network input in Introscope, Introscope reporter in XAP metrics configured ([more details](#configuration)).
+- CA APM Introscope 9.6 environment. The integration was tested with CA APM Introscope 9.6 however, higher versions (at least 9.x) should also integrate properly.
+- Enable network input to Introscope, Introscope reporter in XAP metrics configured ([more details](#configuration)).
 
-# Quick steps
+# Configuration
 
-This paragraph shows how to quickly, using basing configuration set up a working environment with XAP sending metrics to CA Introscope.
+We will show you how to configure a working environment with XAP sending metrics information to CA Introscope.
 
 ## Basic configuration
 
@@ -45,18 +81,18 @@ The steps below use only basic configuration without getting into details, more 
 
 ## Starting Introscope and XAP
 
-1. Start Introscope environment (steps to set up development environment are described [here](#development-environment-installation-steps)).
-2. Start XAP grid by running command: `$GS_HOME/bin/gs-agent.sh`.
+1. Start the Introscope environment (setup instructions cab be found [here](#development-environment-installation-steps)).
+2. Start the XAP grid by running the following command: `$GS_HOME/bin/gs-agent.sh`.
 
 ## Observing metrics
 
 1. Log in to webview.
 2. Go to `Investigator` tab, then `Metric Browser` tab.
-3. Node `*SuperDomain*/XAP host/EPAgentProcess/EPAgent(*SuperDomain*)` should contain subnode `xap` that is a root of all metrics reported by XAP.
+3. Node `*SuperDomain*/XAP host/EPAgentProcess/EPAgent(*SuperDomain*)` should contain a sub-node `xap` that is the root of all metrics reported by XAP.
 
 # Configuration
 
-To properly work, XAP-apm-introscope requires a little configuration both on Introscope side and XAP side.
+To properly work, XAP-apm-introscope requires a some configuration on both sides,  Introscope  and XAP.
 
 ## Introscope properties
 
@@ -87,8 +123,6 @@ Below config to be included within the `metrics.xml` file:
     </reporters>
 {% endhighlight %}
 
-## Licensing
-XAP-apm-introscope requires a separate license in addition to the XAP commercial license, please contact GigaSpaces Customer Support for more details.
 
 # Integration details
 
@@ -126,7 +160,8 @@ Format of each line is as follows:
      <metric type="TYPE" name="NAME" value="VALUE" />
 {% endhighlight %}
 
-There are three fields that need to be populated: type, name and value. Only the first one requires a short comment. Introscope has few types of metrics defined. Some of them are connected with a little bit of logic - e.g. Introscope may compute average value of all reported values. However, XAP-apm-introscope uses only the most basic ones - `LongCounter` for numerical data and `StringEvent` for others, because statistics are already processed by XAP and need only to be exported to Introscope.
+There are three fields that need to be populated: `type`, `name` and `value`. Only the first one requires a short comment. Introscope has few types of metrics defined. Some of them are connected with a little bit of logic - e.g. Introscope may compute average value of all reported values.
+However, XAP-apm-introscope uses only the most basic ones - `LongCounter` for numerical data and `StringEvent` for others, because statistics are already processed by XAP and need only to be exported to Introscope.
 
 Below is an example of metric data sent to Introscope:
 {% highlight xml %}
@@ -135,14 +170,14 @@ Below is an example of metric data sent to Introscope:
 <metric type="LongCounter" name="xap|groupA|space|space_metricsSpace|0|primary:operations_lease-expired" value="100" />
 {% endhighlight %}
 
-More details regarding each line will be explained in the next paragraph.
 
-##### Timestamps warning
+
+### Timestamps warning
 There is no possibility to tie metric data with timestamp. Introscope connects a single metric report with the time it was received by Introscope, not sent by XAP. This means that sending metrics in batch should be disabled, when integrating both systems.
 
-## Hierarchy insertion
+### Hierarchy insertion
 
-XAP reports tens of different predefined metrics per machine that belongs to grid, deployed processing unit or space (you can find more information [here](http://docs.gigaspaces.com/xap102adm/metrics-bundled.html)). Additionally, there might be also custom metrics defined by users. Even for one machine, number of metrics becomes too high for human-being to track them easily in webview in flat format. Hierarchy is inserted by modifying metric name - it has the given format:
+XAP reports tens of different predefined metrics per machine that belongs to a grid, deployed processing units or Space (you can find more information [here](./metrics-bundled.html)). Additionally, there might be also custom metrics defined by users. Even for one machine, number of metrics becomes too high for human-being to track them easily in webview in flat format. Hierarchy is inserted by modifying metric name - it has the given format:
 
 {% highlight yaml %}
      RESOURCE_SEGMENT_1|...|RESOURCE_SEGMENT_N:METRIC_NAME
