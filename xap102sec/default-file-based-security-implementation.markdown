@@ -51,6 +51,8 @@ If the file doesn't exist, only a warning is displayed
 You should specify in the UI (manage security) the path to security configuration file containing this property ,otherwise the default fsm file will be used.
 {%endnote%}
 
+{% warning %}  If you create or alter a file it is the local file and not the server's copy. You will have to move it to the server in order for the Users and Roles to be available in the secured grid.{%endwarning%}
+
 ![security_namagement_config_file.jpg](/attachment_files/security_namagement_config_file.jpg)
 
 # Custom Extensions
