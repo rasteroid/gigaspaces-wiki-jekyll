@@ -178,7 +178,7 @@ Detailed information regarding persistence.xml can be found in [OpenJPA's Manual
 ### Listing Your Persistent Classes
 
 {% refer %}
-Information regarding Entities declaration can be found [here](./jpa-api.html#GigaSpaces JPA Entities)
+Information regarding Entities declaration can be found [here](./jpa-api.html#gigaspaces-jpa-entities)
 {% endrefer %}
 
 When working with persistent classes, you have a number of ways to make the JPA layer aware of them:
