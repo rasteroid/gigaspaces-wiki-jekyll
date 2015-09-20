@@ -369,6 +369,8 @@ You may extend the [SpaceEntriesAggregator](http://www.gigaspaces.com/docs/JavaD
 
 The example below shows a`String` field concatenation aggregator - for each entry extracts the field (path) value and concatenates with the previous values extracted.
 
+For detailed use of Custom Aggregators visit the best practice documentation [Custom Aggregators Best Practice](/sbp/aggregators-custom.html)
+
 The `aggregate` method is called within each partition. Here we keep the `ConcatAggregator` object (and its `transient StringBuilder sb`) alive for the duration of the scan so it can be reused to concatenate the values.
 
 The `aggregateIntermediateResult` method is called at the client side (only once). In this case this will be called with a brand new object created on the client side.

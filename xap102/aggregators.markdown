@@ -365,6 +365,8 @@ for (GroupByValue group : groupByResult) {
 
 You may extend the [SpaceEntriesAggregator](http://www.gigaspaces.com/docs/JavaDoc{%currentversion%}/com/gigaspaces/query/aggregators/SpaceEntriesAggregator.html) to execute user defined aggregation logic on a given field (path) and a given entries set based on a query.
 
+For detailed use of Custom Aggregators visit the best practice documentation [Custom Aggregators Best Practice](/sbp/aggregators-custom.html)
+
 The example below shows a`String` field concatenation aggregator - for each entry extracts the field (path) value and concatenates with the previous values extracted.
 
 The `aggregate` method is called within each partition. Here we keep the `ConcatAggregator` object (and its `transient StringBuilder sb`) alive for the duration of the scan so it can be reused to concatenate the values.
